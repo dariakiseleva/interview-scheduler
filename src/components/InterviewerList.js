@@ -6,15 +6,17 @@ export default function InterviewerList(props){
 
   //Create array of interviewer list items, wrapped in an h4 tag
   const interviewersArray = props.interviewers.map(interviewer => {
-    let selectedValue = false;
-    if (props.interviewer===interviewer.id){
-      selectedValue = true;
-    }
 
     return (
-      <InterviewerListItem key={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} setInterviewer={props.setInterviewer} selected={selectedValue}/>
+      <InterviewerListItem 
+        key={interviewer.id} 
+        name={interviewer.name} 
+        avatar={interviewer.avatar} 
+        setInterviewer={() => props.setInterviewer(interviewer.id)} 
+        selected={interviewer.id === props.interviewer}
+      />
     );
-    
+
   })
 
   //Render interviewer list

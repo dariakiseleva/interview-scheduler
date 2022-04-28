@@ -95,13 +95,26 @@ storiesOf("InterviewerListItem", module)
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
   })
   .add("Unselected", () => (
-    <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar}/>
+    <InterviewerListItem 
+      id={interviewer.id} 
+      name={interviewer.name} 
+      avatar={interviewer.avatar}
+    />
   ))
   .add("Selected", () => (
-    <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} selected/>
+    <InterviewerListItem 
+      id={interviewer.id} 
+      name={interviewer.name} 
+      avatar={interviewer.avatar} 
+      selected
+    />
   ))
   .add("Clickable", () => (
-    <InterviewerListItem id={interviewer.id} name={interviewer.name} avatar={interviewer.avatar} setInterviewer={action("setInterviewer")}/>
+    <InterviewerListItem
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      setInterviewer={() => action("setInterviewer")(interviewer.id)}
+    />
   ));
 
 
