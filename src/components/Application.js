@@ -1,5 +1,7 @@
-import React from "react";
+//Import functionalities
+import React, { useState } from "react";
 
+//Import style
 import "components/Application.scss";
 
 //Import components
@@ -28,6 +30,9 @@ const days = [
 
 
 export default function Application(props) {
+
+  const [day, setDay] = useState("Monday");
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -42,7 +47,7 @@ export default function Application(props) {
 
       {/* Navigation */}
       <nav className="sidebar__menu">
-        <DayList days={days} day={"Monday"} setDay={day => console.log(day)}/>
+        <DayList days={days} day={day} setDay={setDay}/>
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
