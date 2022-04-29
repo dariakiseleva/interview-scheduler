@@ -18,6 +18,7 @@ import Show from "components/Appointment/Show"
 import Confirm from "components/Appointment/Confirm"
 import Status from "components/Appointment/Status"
 import Error from "components/Appointment/Error"
+import Form from "components/Appointment/Form"
 
 //----BUTTON STORIES
 
@@ -175,6 +176,38 @@ storiesOf("Appointment", module)
 .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")} />)
 .add("Status", () => <Status message="Deleting"/>)
 .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")} />)
+.add("Create", () => (
+  <Form
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}
+  />
+))
+.add("Edit", () => (
+  <Form
+    student="Lydia Miller-Jones"
+    interviewer={1}
+    interviewers={interviewers}
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}
+  />
+))
+
+
+// As part of our Edit story, the <Form> component should take the following props:
+
+//     student:String
+//     interviewer:Number
+//     interviewers:Array
+//     onSave:Function
+//     onCancel:Function
+
+// As part of our Create story, the <Form> component should take the following props:
+
+//     interviewers:Array
+//     onSave:Function
+//     onCancel:Function
+
 
 
 
