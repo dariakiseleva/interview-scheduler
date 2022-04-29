@@ -14,6 +14,7 @@ import InterviewerList from "components/InterviewerList";
 import Appointment from "components/Appointment/index";
 import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty"
+import Show from "components/Appointment/Show"
 
 //----BUTTON STORIES
 
@@ -166,4 +167,13 @@ storiesOf("Appointment", module)
 .add("Appointment", () => <Appointment />)
 .add("Appointment with time", () => <Appointment time="12pm"/>)
 .add("Header", () => <Header time="12pm" /> )
-.add("Empty", () => <Empty onAdd={action("onAdd")}/>);
+.add("Empty", () => <Empty onAdd={action("onAdd")}/>)
+.add("Show", () => <Show student="Lydia Miller-Jones" interviewer={interviewer} onEdit={action("onEdit")} onDelete={action("onDelete")} />);
+
+
+
+// student:String eg. "Lydia Miller-Jones"
+// interviewer:Object we can use the interview object that already exists in stories/index.js for this
+// onEdit:Function to be called when the user clicks the Edit button
+// onDelete:Function to be called when the user clicks the Delete button
+
