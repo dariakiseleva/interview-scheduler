@@ -5,12 +5,13 @@ import Show from "./Show"
 import Empty from "./Empty"
 
 export default function Appointment(props){
+
   return (
     <Fragment>
       <Header time={props.time} />
       {props.interview ? 
         <Show 
-          inerviewer={props.interview.interviewer} 
+          interviewer={props.interview.interviewer} 
           student={props.interview.student}
         /> 
         : <Empty/>
