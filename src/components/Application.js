@@ -6,7 +6,7 @@ import "components/Application.scss";
 
 //Import components
 import DayList from "./DayList";
-import Appointment from "./Appointment/index";
+import Appointment from "./Appointment";
 
 
 //Mock data
@@ -84,8 +84,6 @@ export default function Application(props) {
   return (
     <main className="layout">
       <section className="sidebar">
-
-
       <img
         className="sidebar--centered"
         src="images/logo.png"
@@ -102,13 +100,11 @@ export default function Application(props) {
         src="images/lhl.png"
         alt="Lighthouse Labs"
       />
-
-
-
       </section>
+
+      {/* Schedule of appointments */}
       <section className="schedule">
         {appointmentsList}
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
       </section>
     </main>
   );
