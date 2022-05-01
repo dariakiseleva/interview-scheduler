@@ -10,7 +10,7 @@ import DayList from "./DayList";
 import Appointment from "./Appointment";
 
 //Import helpers
-import {getAppointmentsForDay} from "./helpers/selectors"
+import {getAppointmentsForDay, getInterview} from "./helpers/selectors"
 
 
 export default function Application(props) {
@@ -52,9 +52,12 @@ export default function Application(props) {
 
   //Create list of appointment components
   const appointmentsList = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+
     return <Appointment 
       key = {appointment.id}
-      {...appointment} 
+      {...appointment}
+      interview = {interview}
     />
   })
   appointmentsList.push(<Appointment key="last" time="5pm" />)

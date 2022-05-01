@@ -1,3 +1,4 @@
+//Fucntion returns a list of appointment objects scheduled for the specified day
 export function getAppointmentsForDay(state, day) {
   
   const appointments = []
@@ -14,4 +15,16 @@ export function getAppointmentsForDay(state, day) {
 
   //Return empty array, or array with appointment objects
   return appointments;
+}
+
+
+export function getInterview(state, interview) {
+  if (interview && interview.interviewer){
+    const updatedInterview = {
+      ...interview,
+      interviewer: state.interviewers[interview.interviewer]
+    }
+    return updatedInterview;
+  }
+  return null;
 }
