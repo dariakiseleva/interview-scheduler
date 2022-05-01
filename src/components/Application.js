@@ -14,11 +14,13 @@ import {getAppointmentsForDay} from "./helpers/selectors"
 
 
 export default function Application(props) {
-  //State 
+
+  //One variable for all things tracked in state
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
 
@@ -32,15 +34,16 @@ export default function Application(props) {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
+      axios.get('/api/interviewers'),
     ])
     .then((all) => {
       setState(prev => ({
         ...prev, 
         days: all[0].data, 
-        appointments: all[1].data
-      }));
-    });
-
+        appointments: all[1].data,
+        interviewers: all[2].data
+      }))
+    })
   }, []);
 
   //Extract appointments for a specific day (the selected one)
