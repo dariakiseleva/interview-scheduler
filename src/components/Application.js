@@ -1,5 +1,6 @@
 //Import functionalities
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 //Import style
 import "components/Application.scss";
@@ -10,24 +11,6 @@ import Appointment from "./Appointment";
 
 
 //Mock data
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
-
 const appointments = {
   "1": {
     id: 1,
@@ -68,9 +51,19 @@ const appointments = {
 };
 
 
-
 export default function Application(props) {
+  //State for list of days
+  const [days, setDays] = useState([]);
 
+  //Get days data from the backend, happens on refresh
+  useEffect(() => {
+    axios.get('/api/days')
+    .then(res => {
+      setDays(res.data);
+    })
+  }, [])
+
+  //Selected day
   const [day, setDay] = useState("Monday");
 
   const appointmentsList = Object.values(appointments).map(appointment => {
