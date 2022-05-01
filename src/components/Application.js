@@ -52,19 +52,26 @@ const appointments = {
 
 
 export default function Application(props) {
-  //State for list of days
-  const [days, setDays] = useState([]);
+  //State 
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    appointments: {}
+  });
+
+  //Custom functions to update parts of the state
+  const setDay = day => setState(prev => ({ ...state, day }));
+  const setDays = days => setState(prev => ({ ...prev, days }));
+
+  
 
   //Get days data from the backend, happens on refresh
   useEffect(() => {
-    axios.get('/api/days')
-    .then(res => {
-      setDays(res.data);
-    })
-  }, [])
+    axios.get("/api/days")
+    .then(res => setDays(res.data));
+  }, []);
 
-  //Selected day
-  const [day, setDay] = useState("Monday");
 
   const appointmentsList = Object.values(appointments).map(appointment => {
     return <Appointment 
@@ -86,7 +93,7 @@ export default function Application(props) {
 
       {/* Navigation */}
       <nav className="sidebar__menu">
-        <DayList days={days} value={day} onChange={setDay}/>
+        <DayList days={state.days} value={state.day} onChange={setDay}/>
       </nav>
       <img
         className="sidebar__lhl sidebar--centered"
