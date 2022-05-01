@@ -5,6 +5,7 @@
 $appointment-height: 11rem;
 
 .appointment {
+
   &__add {
     min-height: $appointment-height;
     padding: 2rem 0;
@@ -170,3 +171,4 @@ $appointment-height: 11rem;
     margin-bottom: 1rem;
   }
 }
+
