@@ -9,11 +9,13 @@ import Header from "./Header"
 import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
+import Status from "./Status"
 
 //Mode constants
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 
 //Render appointment component
@@ -34,7 +36,7 @@ export default function Appointment(props){
     };
 
     //After saving, transition to showing the appointment
-    
+    transition(SAVING);
 
     //Call function in Application component which will update the state
     props.bookInterview(props.id, interview)
@@ -61,7 +63,11 @@ export default function Appointment(props){
           onSave={save}
         />
       )}
-
+      {mode === SAVING && (
+        <Status
+          message="Saving"
+        />
+      )}
 
     </Fragment>
   );
