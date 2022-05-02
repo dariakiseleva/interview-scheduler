@@ -10,7 +10,7 @@ import DayList from "./DayList";
 import Appointment from "./Appointment";
 
 //Import helpers
-import {getAppointmentsForDay, getInterview} from "./helpers/selectors"
+import {getAppointmentsForDay, getInterviewersForDay, getInterview} from "../helpers/selectors"
 
 
 export default function Application(props) {
@@ -46,8 +46,9 @@ export default function Application(props) {
     })
   }, []);
 
-  //Extract appointments for a specific day (the selected one)
+  //Extract appointments and interviewers for a specific day (the selected one)
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  //const dailyInterviewers = getInterviewersForDay(state, state.day);
 
 
   //Create list of appointment components
@@ -58,6 +59,7 @@ export default function Application(props) {
       key = {appointment.id}
       {...appointment}
       interview = {interview}
+      //interviewers = {dailyInterviewers}
     />
   })
   appointmentsList.push(<Appointment key="last" time="5pm" />)

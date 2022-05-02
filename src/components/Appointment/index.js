@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import "./styles.scss";
 
 //Import functionalities
-import useVisualMode from "../hooks/useVisualMode";
+import useVisualMode from "../../hooks/useVisualMode";
 
 //Import components
 import Header from "./Header"
@@ -29,7 +29,7 @@ export default function Appointment(props){
     <Fragment>
       <Header time={props.time} />
 
-      {/* //EMPTY or SHOW components are initially rendered depending on the initial mode */}
+      {/* Choose display depending on the mode, and add transition functions to each that change the mode */}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
