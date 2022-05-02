@@ -34,10 +34,11 @@ export default function Appointment(props){
     };
 
     //After saving, transition to showing the appointment
-    transition(SHOW);
+    
 
     //Call function in Application component which will update the state
-    props.bookInterview(props.id, interview);
+    props.bookInterview(props.id, interview)
+    .then(() => transition(SHOW));
   }
   
 

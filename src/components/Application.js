@@ -32,8 +32,8 @@ export default function Application(props) {
 
     //Create an appointment
     const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
+      ...state.appointments[id], //The ID and time of this appointment
+      interview: { ...interview } //Add the interview to the slot
     };
     
     //Insert the appointment into list of appointments in state
@@ -42,9 +42,20 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    //Update appointments in state
-    setState({...state, appointments});
-    
+    console.log("ID " + id);
+    return axios
+    //Put a new appointment into the backend server
+    .put(
+      `/api/appointments/${id}`,
+      appointment //New data that was created above
+    )
+    //Then re-render with updated appointments
+    .then((res) => {
+      console.log(res);
+      setState({ ...state, appointments });
+    });
+
+
     
   }
   
