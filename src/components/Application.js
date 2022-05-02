@@ -48,7 +48,7 @@ export default function Application(props) {
 
   //Extract appointments and interviewers for a specific day (the selected one)
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-  //const dailyInterviewers = getInterviewersForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
 
 
   //Create list of appointment components
@@ -59,7 +59,7 @@ export default function Application(props) {
       key = {appointment.id}
       {...appointment}
       interview = {interview}
-      //interviewers = {dailyInterviewers}
+      interviewers = {dailyInterviewers}
     />
   })
   appointmentsList.push(<Appointment key="last" time="5pm" />)
