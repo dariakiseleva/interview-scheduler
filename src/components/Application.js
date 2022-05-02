@@ -27,7 +27,7 @@ export default function Application(props) {
   //Custom function to update the day of the state
   const setDay = day => setState(prev => ({ ...state, day }));
 
-  //Function to book an interview
+  //Book interview - both local and remote change
   const bookInterview = (id, interview) => {
 
     //Create an appointment
@@ -42,7 +42,6 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    console.log("ID " + id);
     return axios
     //Put a new appointment into the backend server
     .put(
@@ -50,8 +49,7 @@ export default function Application(props) {
       appointment //New data that was created above
     )
     //Then re-render with updated appointments
-    .then((res) => {
-      console.log(res);
+    .then(() => {
       setState({ ...state, appointments });
     });
 
@@ -59,6 +57,44 @@ export default function Application(props) {
     
   }
   
+  //Delete interview - both local and remote change
+  const cancelInterview  = (id) => {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios
+      .delete(`/api/appointments/${id}`)
+      .then(() => {
+        setState({ ...state, appointments });
+      });
+
+
+
+    // const newState = {...state};
+    // newState.appointments[id].interview = null;
+    // setState(newState);
+    // return;
+
+
+    // return axios
+    // .put(
+    //   `/api/appointments/${id}`,
+    //   {interview: null}
+    // )
+    // .then(() => {
+    //   const newState = {...state};
+    //   newState.appointments[id].interview = null;
+    //   setState(newState);
+    // })
+  }
   
 
   //Run on every re-render
@@ -95,6 +131,7 @@ export default function Application(props) {
       interview = {interview}
       interviewers = {dailyInterviewers}
       bookInterview = {bookInterview} //Function
+      cancelInterview = {cancelInterview} //Function
     />
   })
   appointmentsList.push(<Appointment key="last" time="5pm" />)

@@ -16,6 +16,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 
 
 //Render appointment component
@@ -27,8 +28,8 @@ export default function Appointment(props){
     props.interview ? SHOW : EMPTY
   );
 
+  //When Save button is pressed in Form component
   const save = (name, interviewer) => {
-
     //Create an interview object from the input data (student name and interviewer choice)
     const interview = {
       student: name,
@@ -42,6 +43,14 @@ export default function Appointment(props){
     props.bookInterview(props.id, interview)
     .then(() => transition(SHOW));
   }
+
+  //When Remove is pressed in Show component
+  const remove = () => {
+    transition(DELETING);
+    props.cancelInterview(props.id)
+    .then(() => transition(EMPTY));
+
+  }
   
 
   return (
@@ -54,6 +63,7 @@ export default function Appointment(props){
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={remove}
         />
       )}
       {mode === CREATE && (
@@ -66,6 +76,11 @@ export default function Appointment(props){
       {mode === SAVING && (
         <Status
           message="Saving"
+        />
+      )}
+      {mode === DELETING && (
+        <Status
+          message="Deleting"
         />
       )}
 
