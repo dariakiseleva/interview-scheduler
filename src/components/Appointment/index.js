@@ -25,6 +25,22 @@ export default function Appointment(props){
     props.interview ? SHOW : EMPTY
   );
 
+  const save = (name, interviewer) => {
+
+    //Create an interview object from the input data (student name and interviewer choice)
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    //After saving, transition to showing the appointment
+    transition(SHOW);
+
+    //Call function in Application component which will update the state
+    props.bookInterview(props.id, interview);
+  }
+  
+
   return (
     <Fragment>
       <Header time={props.time} />
@@ -41,6 +57,7 @@ export default function Appointment(props){
         <Form
           interviewers={props.interviewers}
           onCancel={() => back()}
+          onSave={save}
         />
       )}
 

@@ -26,6 +26,28 @@ export default function Application(props) {
 
   //Custom function to update the day of the state
   const setDay = day => setState(prev => ({ ...state, day }));
+
+  //Function to book an interview
+  const bookInterview = (id, interview) => {
+
+    //Create an appointment
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    
+    //Insert the appointment into list of appointments in state
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    //Update appointments in state
+    setState({...state, appointments});
+    
+    
+  }
+  
   
 
   //Run on every re-render
@@ -49,6 +71,7 @@ export default function Application(props) {
   //Extract appointments and interviewers for a specific day (the selected one)
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
+  
 
 
   //Create list of appointment components
@@ -60,6 +83,7 @@ export default function Application(props) {
       {...appointment}
       interview = {interview}
       interviewers = {dailyInterviewers}
+      bookInterview = {bookInterview} //Function
     />
   })
   appointmentsList.push(<Appointment key="last" time="5pm" />)
