@@ -74,7 +74,7 @@ export default function Application(props) {
       .delete(`/api/appointments/${id}`)
       .then(() => {
         setState({ ...state, appointments });
-      });
+      })
   }
   
 

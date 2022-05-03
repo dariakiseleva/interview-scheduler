@@ -11,6 +11,7 @@ import Empty from "./Empty"
 import Form from "./Form"
 import Status from "./Status"
 import Confirm from "./Confirm"
+import Error from "./Error"
 
 //Mode constants
 const EMPTY = "EMPTY";
@@ -20,6 +21,8 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 
 //Render appointment component
@@ -44,7 +47,9 @@ export default function Appointment(props){
 
     //Call function in Application component which will update the state
     props.bookInterview(props.id, interview)
-    .then(() => transition(SHOW));
+    .then(() => transition(SHOW))
+    //If there is an error, display the error message, but go back to before the Status component
+    .catch(error => transition(ERROR_SAVE, true));
   }
 
   //When Remove is pressed in Show component
@@ -54,11 +59,14 @@ export default function Appointment(props){
 
   //When Confirm is pressed to remove an appointment
   const confirmRemove = () => {
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(props.id)
-    .then(() => transition(EMPTY));
+    .then(() => transition(EMPTY))
+    //If there is an error, display the error message, but go back to before the Status component
+    .catch(error => transition(ERROR_DELETE, true))
   }
 
+  //When Edit is pressed in Show mode
   const edit = () => {
     transition(EDIT);
   }
@@ -109,6 +117,18 @@ export default function Appointment(props){
           interviewers={props.interviewers}
           onCancel={() => back()}
           onSave={save}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error 
+          message="Could not save appointment." 
+          onClose={() => back()} 
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error 
+          message="Could not delete appointment." 
+          onClose={() => back()} 
         />
       )}
 
