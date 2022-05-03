@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 
+//Import helpers
+import {getAppointmentsForDay} from "../helpers/selectors"
+
 
 export default function useApplicationData(){
 
@@ -39,11 +42,9 @@ export default function useApplicationData(){
     )
     //Then re-render with updated appointments
     .then(() => {
-      setState({ ...state, appointments });
-    });
-
-
-    
+      const updatedDays = updateSpots(state, appointments, id);
+      setState(prev => {return { ...prev, appointments, updatedDays }})
+    })
   }
   
   //Delete interview - both local and remote change
@@ -62,7 +63,8 @@ export default function useApplicationData(){
     return axios
       .delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({ ...state, appointments });
+        const updatedDays = updateSpots(state, appointments, id);
+        setState(prev => {return { ...prev, appointments, updatedDays }})
       })
   }
   
@@ -84,6 +86,77 @@ export default function useApplicationData(){
       }))
     })
   }, []);
+
+
+
+  const updateSpots = function (state, appointments, id) {
+
+    const currDay = state.days.filter(day => day.name === state.day)[0];
+
+    let spots = 0;
+    for (const id of currDay.appointments) {
+      if (!appointments[id].interview) {
+        spots++;
+      }
+    }
+
+    const updatedDay = { ...currDay, spots };
+    const updatedDays = [...state.days]
+
+    for (let dayIndex in state.days){
+      if(state.days[dayIndex].name===state.day) updatedDays[dayIndex] = updatedDay;
+    }
+    
+    return updatedDays;
+  };
+
+
+  // //Runs every time appointments are updated
+  // useEffect(() => {
+  //   updateSpots();
+  // }, [state.appointments])
+
+
+  // const updateSpots = () => {
+  //   //Appointments in state we already updated
+  //   //STEPS: 
+  //   let spots = 0;
+  //   console.log("STATE");
+  //   console.log(state);
+  //   for (let appointment of getAppointmentsForDay(state, state.day)){
+  //     if (!appointment.interview) {
+  //       spots++;
+  //     }
+  //   }
+  //   console.log(`${spots} free spots`);
+
+  //   //TEMP - FIX - ID OF DAY THAT IS OURS
+  //   let dayIndex = 0;
+
+  //   for (let index in state.days){
+  //     if (state.days[index].name===state.day){
+  //       dayIndex = index;
+  //     }
+  //   }
+
+  //   // const updatedDay = {
+  //   //   ...state.days[dayIndex],
+  //   //   spots
+  //   // }
+
+  //   //axios.post('http://localhost:8001/api/days',).then(response => console.log(response.data));
+
+
+  //     const newState = {...state}
+
+  //     console.log(newState.days[dayIndex]);
+
+  //     // for (let key of Object.keys(newState.days[dayIndex])){
+  //     //   console.log(key);
+  //     // }
+
+  //     //console.log(newState.days[dayIndex]);
+  // }
 
   return { 
     state,
