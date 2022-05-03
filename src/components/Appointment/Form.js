@@ -22,7 +22,8 @@ export default function Form(props){
   }
 
 
-
+  //Display student's name if editing, or message if creating
+  const placeholder = props.student || "Enter Student Name";
 
   //RENDER FORM
   return (
@@ -34,7 +35,7 @@ export default function Form(props){
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
-            placeholder="Enter Student Name"
+            placeholder={placeholder}
             //When change in input detected, update the state for the student's name
             onChange={(event) => setStudent(event.target.value)}
           />

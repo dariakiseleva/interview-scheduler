@@ -19,6 +19,7 @@ const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
 
 
 //Render appointment component
@@ -26,7 +27,7 @@ export default function Appointment(props){
 
   //Destructure what the hook returns
   const { mode, transition, back } = useVisualMode(
-    //Initial mode is SHOW or EMPTY depending on if interview exists
+    //Initial mode (upon refreshing page) is SHOW or EMPTY depending on if interview exists
     props.interview ? SHOW : EMPTY
   );
 
@@ -51,12 +52,17 @@ export default function Appointment(props){
     transition(CONFIRM);
   }
 
+  //When Confirm is pressed to remove an appointment
   const confirmRemove = () => {
     transition(DELETING);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY));
   }
-  
+
+  const edit = () => {
+    transition(EDIT);
+  }
+
 
   return (
     <Fragment>
@@ -69,6 +75,7 @@ export default function Appointment(props){
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={remove}
+          onEdit={edit}
         />
       )}
       {mode === CREATE && (
@@ -93,6 +100,15 @@ export default function Appointment(props){
           message="Delete the appointment?"
           onConfirm={confirmRemove}
           onCancel={() => {back()}}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          student={props.interview.student}
+          interviewer={props.interview.interviewer.id}
+          interviewers={props.interviewers}
+          onCancel={() => back()}
+          onSave={save}
         />
       )}
 

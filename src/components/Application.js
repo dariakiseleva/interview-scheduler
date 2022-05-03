@@ -75,25 +75,6 @@ export default function Application(props) {
       .then(() => {
         setState({ ...state, appointments });
       });
-
-
-
-    // const newState = {...state};
-    // newState.appointments[id].interview = null;
-    // setState(newState);
-    // return;
-
-
-    // return axios
-    // .put(
-    //   `/api/appointments/${id}`,
-    //   {interview: null}
-    // )
-    // .then(() => {
-    //   const newState = {...state};
-    //   newState.appointments[id].interview = null;
-    //   setState(newState);
-    // })
   }
   
 
