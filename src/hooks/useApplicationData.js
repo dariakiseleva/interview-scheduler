@@ -42,7 +42,7 @@ export default function useApplicationData(){
     )
     //Then re-render with updated appointments
     .then(() => {
-      const updatedDays = updateSpots(state, appointments, id);
+      const updatedDays = updateSpots(state, appointments);
       setState(prev => {return { ...prev, appointments, updatedDays }})
     })
   }
@@ -63,7 +63,7 @@ export default function useApplicationData(){
     return axios
       .delete(`/api/appointments/${id}`)
       .then(() => {
-        const updatedDays = updateSpots(state, appointments, id);
+        const updatedDays = updateSpots(state, appointments);
         setState(prev => {return { ...prev, appointments, updatedDays }})
       })
   }
@@ -89,12 +89,13 @@ export default function useApplicationData(){
 
 
 
-  const updateSpots = function (state, appointments, id) {
+  //Modify "days" and return in state to reflect the accurate number of spots
+  const updateSpots = function (state, appointments) {
 
     const currDay = state.days.filter(day => day.name === state.day)[0];
 
     let spots = 0;
-    for (const id of currDay.appointments) {
+    for (let id of currDay.appointments) {
       if (!appointments[id].interview) {
         spots++;
       }
@@ -106,7 +107,7 @@ export default function useApplicationData(){
     for (let dayIndex in state.days){
       if(state.days[dayIndex].name===state.day) updatedDays[dayIndex] = updatedDay;
     }
-    
+
     return updatedDays;
   };
 
