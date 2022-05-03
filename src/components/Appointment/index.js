@@ -10,6 +10,7 @@ import Show from "./Show"
 import Empty from "./Empty"
 import Form from "./Form"
 import Status from "./Status"
+import Confirm from "./Confirm"
 
 //Mode constants
 const EMPTY = "EMPTY";
@@ -17,6 +18,7 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
 
 
 //Render appointment component
@@ -46,10 +48,13 @@ export default function Appointment(props){
 
   //When Remove is pressed in Show component
   const remove = () => {
+    transition(CONFIRM);
+  }
+
+  const confirmRemove = () => {
     transition(DELETING);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY));
-
   }
   
 
@@ -81,6 +86,13 @@ export default function Appointment(props){
       {mode === DELETING && (
         <Status
           message="Deleting"
+        />
+      )}
+      {mode === CONFIRM && (
+        <Confirm
+          message="Delete the appointment?"
+          onConfirm={confirmRemove}
+          onCancel={() => {back()}}
         />
       )}
 
