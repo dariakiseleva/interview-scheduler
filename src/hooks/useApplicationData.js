@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
-
-//Import helpers
-import {getAppointmentsForDay} from "../helpers/selectors"
 
 
 export default function useApplicationData(){

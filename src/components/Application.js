@@ -1,6 +1,5 @@
 //Import functionalities
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 
 //Import style
 import "components/Application.scss";
@@ -36,9 +35,9 @@ export default function Application(props) {
       cancelInterview = {cancelInterview} //Function
     />
   })
-  appointmentsList.push(<Appointment key="last" time="5pm" />)
 
 
+  //RENDER THE APPLICATION
   return (
     <main className="layout">
       <section className="sidebar">
@@ -63,6 +62,7 @@ export default function Application(props) {
       {/* Schedule of appointments */}
       <section className="schedule">
         {appointmentsList}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );

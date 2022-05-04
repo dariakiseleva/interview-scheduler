@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types'; 
+
 import React from "react";
 import "./InterviewerList.scss";
 import InterviewerListItem from "./InterviewerListItem";
 
-export default function InterviewerList(props){
+function InterviewerList(props){
 
   //Create array of interviewer list items, wrapped in an h4 tag
   const interviewersArray = props.interviewers.map(interviewer => {
@@ -27,3 +29,12 @@ export default function InterviewerList(props){
     </section>
   );
 }
+
+
+//Type check the props
+InterviewerList.propTypes = {
+  interviewers: PropTypes.array.isRequired
+};
+
+export default InterviewerList;
+
