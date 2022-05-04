@@ -13,6 +13,7 @@ export default function Form(props){
   //Reset states to default empty values
   const reset = () => {
     setStudent("");
+    setError("");
     setInterviewer(null);
   }
 
@@ -33,6 +34,8 @@ export default function Form(props){
       setError("please select an interviewer");
       return;
     }
+
+    setError("");
     props.onSave(student, interviewer);
   }
   
