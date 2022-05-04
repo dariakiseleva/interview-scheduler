@@ -62,7 +62,7 @@ export default function Application(props) {
       {/* Schedule of appointments */}
       <section className="schedule">
         {appointmentsList}
-        <Appointment key="last" time="5pm" />
+        <Appointment key="last" time="5pm" last/>
       </section>
     </main>
   );

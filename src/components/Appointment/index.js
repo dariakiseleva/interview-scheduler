@@ -77,7 +77,12 @@ export default function Appointment(props){
       <Header time={props.time} />
 
       {/* Choose display depending on the mode, and add transition functions to each that change the mode */}
-      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === EMPTY && (
+        <Empty 
+          onAdd={() => transition(CREATE)}
+          last={props.last}
+        />
+      )}
       {mode === SHOW && (
         <Show
           student={props.interview.student}
