@@ -1,5 +1,11 @@
 # Interview Scheduler
 
+
+## Screenshots
+
+Homepage
+!["Navigating days"]()
+
 ## Setup
 
 Install dependencies with `npm install`.
