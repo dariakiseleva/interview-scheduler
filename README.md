@@ -4,7 +4,7 @@
 ## Screenshots
 
 Homepage
-!["Navigating days"]()
+!["Navigating days"](https://github.com/dariakiseleva/interview-scheduler/blob/master/docs/changing-days.gif?raw=true)
 
 ## Setup
 
