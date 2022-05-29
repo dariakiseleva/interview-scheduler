@@ -21,10 +21,10 @@ One page app to schedule appointments between students and mentors.
 !["Navigating days"](https://github.com/dariakiseleva/interview-scheduler/blob/master/docs/editing-appointment.gif?raw=true)
 
 ## Setup
+* Clone the [scheduler-api](https://github.com/dariakiseleva/scheduler-api) backend server, follow instructions in that README, and finally run the server with `npm start`
 * Clone this repo
 * Install dependencies with `npm install`
 * Run the server with `npm start`
-* Also clone the [scheduler-api](https://github.com/lighthouse-labs/scheduler-api) backend server and run it with `npm start`
 * `npm test` to run the tests
 * `npm run storybook` to see components in Storybook
 
