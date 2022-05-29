@@ -2,6 +2,10 @@
 
 One page app to schedule appointments between students and mentors.
 
+* [Live demo of app](https://interview-scheduler-dk.netlify.app/) on Netlify
+* API endpoints on Heroku — [Days](https://scheduler-api-lhl-dk.herokuapp.com/api/days) | [Appointments](https://scheduler-api-lhl-dk.herokuapp.com/api/appointments) | [Interviewers](https://scheduler-api-lhl-dk.herokuapp.com/api/interviewers)
+
+
 ## Screenshots
 
 *Navigating days*
